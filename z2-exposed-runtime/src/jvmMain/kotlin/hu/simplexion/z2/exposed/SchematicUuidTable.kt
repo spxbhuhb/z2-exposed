@@ -9,6 +9,7 @@ import org.jetbrains.exposed.dao.id.UUIDTable
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.statements.UpdateBuilder
+import org.jetbrains.exposed.sql.statements.UpdateStatement
 
 open class SchematicUuidTable<T : Schematic<T>>(
     val newInstance: () -> T
@@ -37,6 +38,10 @@ open class SchematicUuidTable<T : Schematic<T>>(
         update({ id eq uuid.jvm }) {
             it.fromSchematic(this, schematic)
         }
+    }
+
+    fun update(uuid: UUID<T>, limit: Int? = null, body: SchematicUuidTable<T>.(UpdateStatement) -> Unit) {
+        update({ id eq uuid.jvm }, limit, body)
     }
 
     fun remove(uuid: UUID<T>) {

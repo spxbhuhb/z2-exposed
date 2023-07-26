@@ -28,8 +28,15 @@ class SchematicUuidTableTest {
             schematic.intField = 456
             TestTable.update(schematic.id, schematic)
 
-            val readback = TestTable.get(schematic.id)
+            var readback = TestTable.get(schematic.id)
             assertEquals(456, readback.intField)
+
+            TestTable.update(schematic.id) {
+                it[TestTable.intField] = 789
+            }
+
+            readback = TestTable.get(schematic.id)
+            assertEquals(789, readback.intField)
 
             TestTable.remove(schematic.id)
             assertEquals(0, TestTable.list().size)
