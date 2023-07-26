@@ -20,6 +20,11 @@ open class SchematicUuidTable<T : Schematic<T>>(
             it.toSchematic(this, newInstance())
         }
 
+    fun list(where: SqlExpressionBuilder.() -> Op<Boolean>) : List<T> =
+        select(where).map {
+            it.toSchematic(this, newInstance())
+        }
+
     fun get(uuid: UUID<T>) : T =
         select { id eq uuid.jvm }
             .map {
