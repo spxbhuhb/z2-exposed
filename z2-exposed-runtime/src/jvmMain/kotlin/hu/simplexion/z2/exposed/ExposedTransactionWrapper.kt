@@ -11,8 +11,9 @@ class ExposedTransactionWrapper(
     val wrappedService: ServiceProvider
 ) : ServiceProvider {
 
-    override val serviceName: String
+    override var serviceName: String
         get() = wrappedService.serviceName
+        set(value) { wrappedService.serviceName = value }
 
     override suspend fun dispatch(
         funName: String,
