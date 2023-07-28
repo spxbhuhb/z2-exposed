@@ -1,4 +1,4 @@
-# Z2 Service
+# Z2 Exposed
 
 [![Maven Central](https://img.shields.io/maven-central/v/hu.simplexion.z2/z2-exposed-runtime)](https://mvnrepository.com/artifact/hu.simplexion.z2/z2-exposed-runtime)
 [![GitHub License](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
