@@ -1,7 +1,10 @@
 package hu.simplexion.z2.exposed
 
 
-object TestTable : SchematicUuidTable<TestSchematic>({ TestSchematic() }) {
+object TestTable : SchematicUuidTable<TestSchematic>(
+    "test",
+    TestSchematic()
+) {
 
     val booleanField = bool("booleanField")
     val intField = integer("intField")

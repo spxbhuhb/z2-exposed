@@ -36,8 +36,11 @@ kotlin {
     sourceSets["jvmMain"].dependencies {
         api("hu.simplexion.z2:z2-service-runtime:${z2_version}")
         api("hu.simplexion.z2:z2-schematic-runtime:${z2_version}")
+
         api("org.jetbrains.exposed:exposed-core:${exposed_version}")
         api("org.jetbrains.exposed:exposed-jdbc:${exposed_version}")
+        api("org.jetbrains.exposed:exposed-kotlin-datetime:${exposed_version}")
+
         api("ch.qos.logback:logback-classic:${logback_version}")
     }
 

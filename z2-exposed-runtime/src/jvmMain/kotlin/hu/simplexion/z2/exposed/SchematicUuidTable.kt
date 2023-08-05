@@ -12,8 +12,13 @@ import org.jetbrains.exposed.sql.statements.UpdateBuilder
 import org.jetbrains.exposed.sql.statements.UpdateStatement
 
 open class SchematicUuidTable<T : Schematic<T>>(
-    val newInstance: () -> T
-) : UUIDTable() {
+    name : String,
+    val template : T,
+    val linked : Boolean = false
+) : UUIDTable(name) {
+
+    fun newInstance() =
+        template.schematicCompanion.newInstance()
 
     fun list() : List<T> =
         selectAll().map {
@@ -84,7 +89,7 @@ open class SchematicUuidTable<T : Schematic<T>>(
     fun UpdateBuilder<*>.fromSchematic(table: Table, schematic: Schematic<*>) {
         val statement = this
         for (field in schematic.schematicSchema.fields) {
-            if (field.name == "id") continue
+            if (!linked && field.name == "id") continue
 
             @Suppress("UNCHECKED_CAST")
             val column = table.columns.firstOrNull { it.name == field.name } as? Column<Any?> ?: continue
