@@ -15,7 +15,10 @@ val baseName = "z2-exposed"
 val pomName = "Z2 Exposed Integration"
 val scmPath = "spxbhuhb/z2-exposed"
 
-val z2_version: String by project
+val z2_commons_version: String by project
+val z2_service_version: String by project
+val z2_schematic_version: String by project
+
 val exposed_version: String by project
 val logback_version: String by project
 
@@ -34,8 +37,9 @@ kotlin {
     }
 
     sourceSets["jvmMain"].dependencies {
-        api("hu.simplexion.z2:z2-service-runtime:${z2_version}")
-        api("hu.simplexion.z2:z2-schematic-runtime:${z2_version}")
+        implementation("hu.simplexion.z2:z2-commons:${z2_commons_version}")
+        implementation("hu.simplexion.z2:z2-service-runtime:${z2_service_version}")
+        implementation("hu.simplexion.z2:z2-schematic-runtime:${z2_schematic_version}")
 
         api("org.jetbrains.exposed:exposed-core:${exposed_version}")
         api("org.jetbrains.exposed:exposed-jdbc:${exposed_version}")
@@ -45,8 +49,8 @@ kotlin {
     }
 
     sourceSets["jvmTest"].dependencies {
-        api(kotlin("test"))
-        api("com.h2database:h2:2.1.214")
+        implementation(kotlin("test"))
+        implementation("com.h2database:h2:2.1.214")
     }
 }
 
