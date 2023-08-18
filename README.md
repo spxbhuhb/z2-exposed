@@ -72,7 +72,7 @@ Register a service provider with a wrapper that puts all service calls inside
 Exposed `transaction` blocks:
 
 ```kotlin
-defaultServiceProviderRegistry += withTransaction(FirstServiceProvider())
+defaultServiceImplRegistry += withTransaction(FirstServiceImpl())
 ```
 
 Register all service providers with a wrapper that puts all service calls inside

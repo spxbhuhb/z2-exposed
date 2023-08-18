@@ -3,11 +3,11 @@ package hu.simplexion.z2.exposed
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.Logger
 import hu.simplexion.z2.commons.util.UUID
-import hu.simplexion.z2.schematic.runtime.Schematic
-import hu.simplexion.z2.schematic.runtime.schema.Schema
-import hu.simplexion.z2.service.runtime.ServiceProvider
-import hu.simplexion.z2.service.runtime.defaultServiceProviderRegistry
-import org.jetbrains.exposed.sql.*
+import hu.simplexion.z2.service.runtime.ServiceImpl
+import hu.simplexion.z2.service.runtime.defaultServiceImplFactory
+import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.slf4j.LoggerFactory
 
@@ -23,12 +23,12 @@ fun debugSql(active: Boolean) {
     logger.level = if (active) Level.DEBUG else Level.INFO
 }
 
-inline fun withTransaction(wrappedService: () -> ServiceProvider): ServiceProvider =
+inline fun withTransaction(wrappedService: () -> ServiceImpl): ServiceImpl =
     ExposedTransactionWrapper(wrappedService())
 
-fun registerWithTransaction(vararg services: ServiceProvider) {
+fun registerWithTransaction(vararg services: ServiceImpl) {
     for (service in services) {
-        defaultServiceProviderRegistry += withTransaction { service }
+        defaultServiceImplFactory += withTransaction { service }
     }
 }
 
