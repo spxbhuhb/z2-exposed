@@ -15,7 +15,7 @@ open class SchematicUuidTable<T : Schematic<T>>(
     name : String,
     val template : T,
     val linked : Boolean = false
-) : UUIDTable(name) {
+) : UUIDTable(name, columnName = "uuid") {
 
     fun newInstance() =
         template.schematicCompanion.newInstance()
